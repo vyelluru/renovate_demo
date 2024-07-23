@@ -25,10 +25,11 @@ const model = async (prompt, imagePath) => {
        const input = {
            image: resizedImageBuffer,
            prompt: prompt || "",
-           negative_prompt: "nude, disfigured, blurry",
-           num_inference_steps: 100,
+           scheduler: "DDIM",
+           negative_prompt: "disfigured, blurry, unrealistic",
+           num_inference_steps: 50,
            //guidance_scale: 12,
-           image_guidance_scale: 15
+           image_guidance_scale: 12
        };
 
 
