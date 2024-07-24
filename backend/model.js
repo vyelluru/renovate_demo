@@ -15,21 +15,57 @@ const model = async (prompt, imagePath) => {
 
 
    try {
-       const imageBuffer = await readFile(imagePath);
+    //    const imageBuffer = await readFile(imagePath);
       
-       const resizedImageBuffer = await sharp(imageBuffer)
-           .resize({ width: 1024, withoutEnlargement: true })
-           .toBuffer();
+    //    const resizedImageBuffer = await sharp(imageBuffer)
+    //         .resize({
+    //             fit: sharp.fit.contain,
+    //             width: 800
+    //         })
+    //        .toBuffer();
+
+        const imageBuffer = await readFile(imagePath);
+
+        // Detect image format and apply appropriate processing
+        let imageSharp = sharp(imageBuffer);
+        const metadata = await imageSharp.metadata();
+        
+        // Determine appropriate resize options
+        const resizeOptions = {
+            fit: sharp.fit.contain,
+            width: 800
+        };
+
+        // Adjust resize options based on original image dimensions if needed
+        if (metadata.width > 800) {
+            resizeOptions.width = 800;
+        } else {
+            resizeOptions.width = metadata.width;
+        }
+
+        // Apply resizing and compression based on detected image format
+        if (metadata.format === 'jpeg') {
+            imageSharp = imageSharp.jpeg({ quality: 70 });
+        } else if (metadata.format === 'png') {
+            imageSharp = imageSharp.png({ compressionLevel: 9 });
+        } else if (metadata.format === 'webp') {
+            imageSharp = imageSharp.webp({ quality: 80 });
+        } else {
+            imageSharp = imageSharp.jpeg({ quality: 70 });
+        }
+
+        // Resize and compress the image
+        const resizedImageBuffer = await imageSharp.resize(resizeOptions).toBuffer();
 
 
        const input = {
            image: resizedImageBuffer,
            prompt: prompt || "",
            scheduler: "DDIM",
-           negative_prompt: "disfigured, blurry, unrealistic",
-           num_inference_steps: 50,
+           negative_prompt: "nude, disfigured, blurry",
+           num_inference_steps: 25,
            //guidance_scale: 12,
-           image_guidance_scale: 12
+           //image_guidance_scale: 12
        };
 
 
