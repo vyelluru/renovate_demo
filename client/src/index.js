@@ -11,7 +11,6 @@ import Protected from './components/Protected';
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<App/>}>
     <Route path="/login" element={<Login/>}/>
-    <Route path="/" index element={<Home/>}/>
     <Route path="/" element={<Protected/>}>
       <Route path="/" index element={<Home/>}/>
     </Route>
