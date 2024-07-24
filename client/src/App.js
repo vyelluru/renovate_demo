@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import "./App.css"
+import { Outlet } from 'react-router-dom';
 
 function App() {
   const [originalImageUrl, setOriginalImageUrl] = useState(null);
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <Outlet></Outlet>
       <header className="app-header">
         <h1>Stage.ai</h1>
       </header>
