@@ -68,7 +68,7 @@ const Home = () => {
     <div className="app-container">
       <h3>Welcome {user.displayName}</h3>
       <header className="app-header">
-        <h1>Stage.ai</h1>
+        <h1>Renovate.ai</h1>
       </header>
       <main className="app-main">
         <div className="input-section">

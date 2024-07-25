@@ -27,7 +27,7 @@ body {
 
 .app-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .app-header h1 {
@@ -317,4 +317,26 @@ body {
   width: 100%;
   max-width: 600px;
   margin-bottom: 20px;
+}
+
+
+/* Logout Button */
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 24px;
+  font-size: 14px;
+  background: linear-gradient(145deg, var(--primary-color), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(46, 139, 87, 0.2);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(46, 139, 87, 0.3);
 }
