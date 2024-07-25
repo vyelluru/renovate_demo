@@ -16,7 +16,6 @@ const Login = () => {
             navigate("/");
         } catch (error) {
             console.error('Error signing in with Google:', error.message);
-            // Handle error here (e.g., show error message to the user)
         }
     }   
 

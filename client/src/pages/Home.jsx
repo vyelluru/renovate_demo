@@ -12,6 +12,7 @@ const Home = () => {
     localStorage.removeItem('token')
     navigate("/login")
   }
+  
   const [originalImageUrl, setOriginalImageUrl] = useState(null);
   const [editedImageUrl, setEditedImageUrl] = useState(null);
   const [prompt, setPrompt] = useState("");
