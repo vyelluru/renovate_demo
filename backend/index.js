@@ -8,6 +8,8 @@ const multerS3 = require('multer-s3');
 const serpapi = require("./serpapi.js");
 const { S3Client } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
+const linkPreview = require('./linkPreview.js');
+const fs = require('fs');
 
 const app = express();
 app.use(cors());
@@ -46,11 +48,24 @@ app.post('/generate-image', upload.single('image'), async (req, res) => {
   }
   const imagePath = req.file.location;
   console.log('Received prompt:', prompt);
-  console.log('Image path:', imagePath);
+  console.log('User Input in S3:', imagePath);
    try {
-    const output = await model(prompt, imagePath);
+    let output = await model(prompt, imagePath);
+    output = output[0]
+    console.log('Output of Diffusion Model:', output)
+
     const serpapiOutput = await serpapi(output);
-    res.json({ message: 'Image generated', imageUrl: output[0], serpUrl: serpapiOutput });
+    console.log('Output of SerpAPI Lens: ', serpapiOutput);
+    let websitePreviewOutputArray = serpapiOutput;
+
+    let linkedPreviewOutputArray = []
+    for (link of websitePreviewOutputArray) {
+      const linkPreviewOutput = await linkPreview(link);
+      linkedPreviewOutputArray.push(linkPreviewOutput.image)
+    }
+    console.log('Output of LinkPreview API:', linkedPreviewOutputArray);
+
+    res.json({ message: 'Image generated', imageUrl: output, productArray: linkedPreviewOutputArray, productWebArray: websitePreviewOutputArray});
       
   } catch (error) {
     console.error('Error generating image:', error);

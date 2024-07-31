@@ -15,12 +15,14 @@ const Home = () => {
   
   const [originalImageUrl, setOriginalImageUrl] = useState(null);
   const [editedImageUrl, setEditedImageUrl] = useState(null);
-  const [serpapiUrl, setSerpapiUrl] = useState(null);
 
   const [prompt, setPrompt] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState(null);
+
+  const [productImagesArray, setProductImagesArray] = useState([]);
+  const [productWebsiteArray, setProductWebsiteArray] = useState([]);
 
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
@@ -38,7 +40,8 @@ const Home = () => {
       setUploadedImage(file);
       setOriginalImageUrl(URL.createObjectURL(file));
       setEditedImageUrl(null);
-      setSerpapiUrl(null);
+      setProductImagesArray([]);
+      setProductWebsiteArray([]);
     }
   };
 
@@ -60,7 +63,8 @@ const Home = () => {
       });
       const data = await response.json();
       setEditedImageUrl(data.imageUrl);
-      setSerpapiUrl(data.serpUrl);
+      setProductImagesArray(data.productArray)
+      setProductWebsiteArray(data.productWebArray)
     } catch (error) {
       console.error('Error sending input to server:', error);
       alert('Failed to generate image. Please try again.');
@@ -127,18 +131,11 @@ const Home = () => {
           </div>
           <div className="image-box edited">
             <h2>Edited Image</h2>
+            <img src={productImagesArray[0]} />
+            <a href={productWebsiteArray[0]}>Open Similar</a>
             <div className="image-container">
               {editedImageUrl ? (
                 <img src={editedImageUrl} alt="Edited" className="image" />
-              ) : isLoading ? (
-                <div className="placeholder">Generating...</div>
-              ) : (
-                <div className="placeholder">Your edited image will appear here</div>
-              )}
-            </div>
-            <div className="image-container">
-              {serpapiUrl ? (
-                <img src={serpapiUrl} alt="Serp"/>
               ) : isLoading ? (
                 <div className="placeholder">Generating...</div>
               ) : (
