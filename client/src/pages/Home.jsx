@@ -15,6 +15,8 @@ const Home = () => {
   
   const [originalImageUrl, setOriginalImageUrl] = useState(null);
   const [editedImageUrl, setEditedImageUrl] = useState(null);
+  const [serpapiUrl, setSerpapiUrl] = useState(null);
+
   const [prompt, setPrompt] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +38,7 @@ const Home = () => {
       setUploadedImage(file);
       setOriginalImageUrl(URL.createObjectURL(file));
       setEditedImageUrl(null);
+      setSerpapiUrl(null);
     }
   };
 
@@ -57,6 +60,7 @@ const Home = () => {
       });
       const data = await response.json();
       setEditedImageUrl(data.imageUrl);
+      setSerpapiUrl(data.serpUrl);
     } catch (error) {
       console.error('Error sending input to server:', error);
       alert('Failed to generate image. Please try again.');
@@ -126,6 +130,15 @@ const Home = () => {
             <div className="image-container">
               {editedImageUrl ? (
                 <img src={editedImageUrl} alt="Edited" className="image" />
+              ) : isLoading ? (
+                <div className="placeholder">Generating...</div>
+              ) : (
+                <div className="placeholder">Your edited image will appear here</div>
+              )}
+            </div>
+            <div className="image-container">
+              {serpapiUrl ? (
+                <img src={serpapiUrl} alt="Serp"/>
               ) : isLoading ? (
                 <div className="placeholder">Generating...</div>
               ) : (

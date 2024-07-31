@@ -1,7 +1,7 @@
 const Replicate = require('replicate');
 const { readFile } = require("node:fs/promises");
 const sharp = require('sharp');
-
+const axios = require('axios');
 
 const model = async (prompt, imagePath) => {
    if (!imagePath) {
@@ -23,8 +23,17 @@ const model = async (prompt, imagePath) => {
     //             width: 800
     //         })
     //        .toBuffer();
+        let imageBuffer;
 
-        const imageBuffer = await readFile(imagePath);
+        // Check if imagePath is a URL or a local file path
+        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+            // It's a URL, download the image
+            const response = await axios.get(imagePath, { responseType: 'arraybuffer' });
+            imageBuffer = Buffer.from(response.data, 'binary');
+        } else {
+            // It's a local file path, read it directly
+            imageBuffer = await readFile(imagePath);
+        }
 
         // Detect image format and apply appropriate processing
         let imageSharp = sharp(imageBuffer);
