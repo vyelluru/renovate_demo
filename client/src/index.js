@@ -8,6 +8,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 //import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Protected from './components/Protected';
+import Products from './pages/Products';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<App/>}>
@@ -15,6 +16,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<Protected/>}>
       <Route path="/" index element={<Home/>}/>
     </Route>
+    <Route path="/products" element={<Products/>}/>
   </Route>
 ))
 const root = ReactDOM.createRoot(document.getElementById('root'));

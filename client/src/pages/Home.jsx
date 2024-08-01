@@ -35,8 +35,7 @@ const Home = () => {
   ];
 
   const handleSeeProductsClick = () => {
-    alert("This is where you can navigate to products!");
-    // Example: navigate("/products");
+    navigate("/products", {state: { productImagesArray,productWebsiteArray }});
   };
 
   const handleFileUpload = (event) => {
@@ -136,8 +135,6 @@ const Home = () => {
           </div>
           <div className="image-box edited">
             <h2>Edited Image</h2>
-            <img src={productImagesArray[0]} alt="" className="product-image"/>
-            <a href={productWebsiteArray[0]}>Open Similar</a>
             <div className="image-container">
               {editedImageUrl ? (
                 <img src={editedImageUrl} alt="Edited" className="image" />
