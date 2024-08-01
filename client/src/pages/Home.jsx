@@ -34,6 +34,11 @@ const Home = () => {
     { value: 'realistic', label: 'Realistic' },
   ];
 
+  const handleSeeProductsClick = () => {
+    alert("This is where you can navigate to products!");
+    // Example: navigate("/products");
+  };
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -131,7 +136,7 @@ const Home = () => {
           </div>
           <div className="image-box edited">
             <h2>Edited Image</h2>
-            <img src={productImagesArray[0]} />
+            <img src={productImagesArray[0]} alt="" className="product-image"/>
             <a href={productWebsiteArray[0]}>Open Similar</a>
             <div className="image-container">
               {editedImageUrl ? (
@@ -146,6 +151,11 @@ const Home = () => {
         </div>
       </main>
       <button onClick={handleLogout} className="logout-btn">Logout</button>
+      {editedImageUrl && (
+        <button onClick={handleSeeProductsClick} className="see-products-btn">
+          Click to See Products
+        </button>
+      )}
     </div>
   );
 };
