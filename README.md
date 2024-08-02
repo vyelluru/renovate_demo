@@ -1,5 +1,5 @@
-# renovate_demo
+# Renovate.ai
 
 End to end platform to renovate your space with AI
 
-https://waitforit.me/signup/15091383
+Signup for the Waitlist: https://waitforit.me/signup/15091383
