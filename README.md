@@ -2,4 +2,4 @@
 
 End to end platform to renovate your space with AI
 
-https://renovate-demo-client.vercel.app/
+https://waitforit.me/signup/15091383
